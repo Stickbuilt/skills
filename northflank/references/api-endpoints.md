@@ -29,6 +29,15 @@ Paginated endpoints accept `per_page` (max 100), `page`, and `cursor` query para
 20. [VCS](#vcs)
 21. [Plans & Regions](#plans--regions)
 22. [DNS](#dns)
+23. [External Addons](#external-addons)
+24. [SSH Identities](#ssh-identities)
+25. [Egress IPs](#egress-ips)
+26. [LLM Model Deployments](#llm-model-deployments)
+27. [Org Roles](#org-roles)
+28. [Teams](#teams)
+29. [Release Flows](#release-flows)
+30. [Preview Blueprints](#preview-blueprints)
+31. [Gradual Rollout Strategies](#gradual-rollout-strategies)
 
 ---
 
@@ -494,3 +503,129 @@ Pipelines also have preview-templates, release-flows, and preview-blueprints —
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/dns-id` | Get DNS ID |
+
+---
+
+## External Addons
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/projects/{projectId}/external-addons` | List external addons (paginated) |
+| POST | `/projects/{projectId}/external-addons` | Create external addon (OpenTofu) |
+| GET | `/projects/{projectId}/external-addons/{addonId}` | Get external addon |
+| POST | `/projects/{projectId}/external-addons/{addonId}` | Update external addon |
+| DELETE | `/projects/{projectId}/external-addons/{addonId}` | Delete external addon |
+
+---
+
+## SSH Identities
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/integrations/ssh-identities` | List SSH identities |
+| POST | `/integrations/ssh-identities` | Add SSH identity |
+| GET | `/integrations/ssh-identities/{sshIdentityId}` | Get (includes public keys) |
+| POST | `/integrations/ssh-identities/{sshIdentityId}` | Update |
+| DELETE | `/integrations/ssh-identities/{sshIdentityId}` | Delete |
+
+---
+
+## Egress IPs
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/egress-ips` | List egress IPs |
+| POST | `/egress-ips` | Create egress IP |
+| GET | `/egress-ips/{egressIpId}` | Get egress IP |
+| PUT | `/egress-ips/{egressIpId}` | Replace |
+| PATCH | `/egress-ips/{egressIpId}` | Patch |
+| DELETE | `/egress-ips/{egressIpId}` | Delete |
+
+---
+
+## LLM Model Deployments
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/projects/{projectId}/llm-model-deployments` | List deployments |
+| POST | `/projects/{projectId}/llm-model-deployments` | Create deployment |
+| GET | `/projects/{projectId}/llm-model-deployments/{deploymentId}` | Get deployment |
+| POST | `/projects/{projectId}/llm-model-deployments/{deploymentId}` | Update |
+| DELETE | `/projects/{projectId}/llm-model-deployments/{deploymentId}` | Delete |
+
+---
+
+## Org Roles
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/org-roles` | List org roles |
+| POST | `/org-roles` | Create org role |
+| GET | `/org-roles/{roleId}` | Get role |
+| POST | `/org-roles/{roleId}` | Update role |
+| PATCH | `/org-roles/{roleId}` | Patch role |
+| DELETE | `/org-roles/{roleId}` | Delete role |
+| POST | `/org-roles/{roleId}/members` | Add member |
+| DELETE | `/org-roles/{roleId}/members/{memberId}` | Remove member |
+
+---
+
+## Teams
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/teams` | List teams |
+| POST | `/teams` | Create team |
+| GET | `/teams/{teamId}` | Get team |
+| PATCH | `/teams/{teamId}` | Patch team |
+| GET | `/teams/{teamId}/members` | List members |
+| POST | `/teams/{teamId}/members/invite` | Invite member |
+| DELETE | `/teams/{teamId}/members/{memberId}` | Remove member |
+| GET | `/teams/{teamId}/roles` | List team roles |
+| POST | `/teams/{teamId}/roles` | Create team role |
+| GET | `/teams/{teamId}/roles/{roleId}` | Get role |
+| PUT | `/teams/{teamId}/roles/{roleId}` | Replace role |
+| PATCH | `/teams/{teamId}/roles/{roleId}` | Patch role |
+| DELETE | `/teams/{teamId}/roles/{roleId}` | Delete role |
+| POST | `/teams/{teamId}/roles/{roleId}/members` | Add role member |
+| DELETE | `/teams/{teamId}/roles/{roleId}/members/{memberId}` | Remove role member |
+
+---
+
+## Release Flows
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/projects/{projectId}/pipelines/{pipelineId}/release-flows/{flowId}` | Get release flow |
+| POST | `/projects/{projectId}/pipelines/{pipelineId}/release-flows/{flowId}` | Update release flow |
+| POST | `.../release-flows/{flowId}/run` | Run release flow |
+| GET | `.../release-flows/{flowId}/runs` | List runs |
+| GET | `.../release-flows/{flowId}/runs/{runId}` | Get run |
+| POST | `.../release-flows/{flowId}/runs/{runId}/abort` | Abort run |
+
+---
+
+## Preview Blueprints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/projects/{projectId}/pipelines/{pipelineId}/preview-blueprints` | List blueprints |
+| POST | `/projects/{projectId}/pipelines/{pipelineId}/preview-blueprints` | Create blueprint |
+| GET | `.../preview-blueprints/{blueprintId}` | Get blueprint |
+| POST | `.../preview-blueprints/{blueprintId}` | Update blueprint |
+| DELETE | `.../preview-blueprints/{blueprintId}` | Delete blueprint |
+| POST | `.../preview-blueprints/{blueprintId}/run` | Run blueprint |
+| GET | `.../preview-blueprints/{blueprintId}/runs` | List runs |
+| GET | `.../preview-blueprints/{blueprintId}/runs/{runId}` | Get run |
+| POST | `.../preview-blueprints/{blueprintId}/runs/{runId}/abort` | Abort run |
+
+---
+
+## Gradual Rollout Strategies
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/gradual-rollout-strategies` | Create strategy |
+| PATCH | `/gradual-rollout-strategies/{strategyId}` | Patch strategy |
+| PUT | `/gradual-rollout-strategies/{strategyId}` | Replace strategy |
+| DELETE | `/gradual-rollout-strategies/{strategyId}` | Delete strategy |

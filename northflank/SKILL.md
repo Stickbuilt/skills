@@ -23,7 +23,7 @@ northflank <verb> <resource> [subresource] [options]
 
 **Verbs:** list, get, create, update, patch, put, delete, add, import, pause, resume, scale, start, suspend, restart, reset, run, abort, backup, restore, retain, assign, unassign, verify, enable, disable, attach, detach, cordon, drain, uncordon
 
-**Special commands:** forward|fwd, command-exec|exec, download|dl, upload|ul, login, context|contexts, command-overview
+**Special commands:** forward|fwd, command-exec|exec, ssh, download|dl, upload|ul, login, context|contexts, command-overview
 
 ### Common Options (all commands)
 ```
@@ -145,6 +145,7 @@ northflank create job cron|manual --project <ID> -i '<JSON>'
 northflank start job build|run --project <ID> --job <ID>
 northflank abort job build|run --project <ID> --job <ID>
 northflank pause|resume|scale|suspend job --project <ID> --job <ID>
+northflank update job settings --project <ID> --job <ID> -i '<JSON>'
 ```
 
 ### Addons (addon|addons|adn)
@@ -163,6 +164,21 @@ northflank create addon --project <ID> -i '<JSON>'
 northflank pause|resume|restart|reset|scale addon --project <ID> --addon <ID>
 northflank backup addon --project <ID> --addon <ID>
 northflank restore addon backup --project <ID> --addon <ID> --backupId <ID>
+
+# Update addon subresources
+northflank update addon network-settings --project <ID> --addon <ID> -i '<JSON>'
+northflank update addon security --project <ID> --addon <ID> -i '<JSON>'
+northflank update addon version --project <ID> --addon <ID> -i '<JSON>'
+```
+
+### External Addons (third-party cloud resources via OpenTofu)
+
+```bash
+northflank list external-addons --project <ID>
+northflank get external-addon --project <ID> --addon <ID>
+northflank create external-addon --project <ID> -i '<JSON>'
+northflank update external-addon --project <ID> --addon <ID> -i '<JSON>'
+northflank delete external-addon --project <ID> --addon <ID>
 ```
 
 ### Projects (project|projects|prj)
@@ -240,9 +256,33 @@ northflank pause|resume log-sink --logSink <ID>
 northflank list registry-credentials
 northflank add registry-credentials -i '<JSON>'
 
+# SSH identities
+northflank list ssh-identities
+northflank add ssh-identities -i '<JSON>'
+northflank get ssh-identities --sshIdentity <ID>
+northflank update ssh-identities --sshIdentity <ID> -i '<JSON>'
+northflank delete ssh-identities --sshIdentity <ID>
+
 # Load balancers
 northflank list load-balancers
 northflank create load-balancer -i '<JSON>'
+
+# Egress IPs
+northflank list egress-ips
+northflank create egress-ip -i '<JSON>'
+northflank get egress-ip --egressIp <ID>
+northflank delete egress-ip --egressIp <ID>
+
+# Gradual rollout strategies
+northflank create gradual-rollout-strategy -i '<JSON>'
+northflank delete gradual-rollout-strategy --strategyId <ID>
+
+# LLM model deployments
+northflank list llm-model-deployments --project <ID>
+northflank get llm-model-deployment --project <ID> --llmModelDeployment <ID>
+northflank create llm-model-deployment --project <ID> -i '<JSON>'
+northflank update llm-model-deployment --project <ID> --llmModelDeployment <ID> -i '<JSON>'
+northflank delete llm-model-deployment --project <ID> --llmModelDeployment <ID>
 
 # Tags
 northflank list tags
@@ -254,7 +294,13 @@ northflank get invoice details
 
 # Cloud/BYOC
 northflank list cloud providers|clusters|integrations|node-types|regions
+northflank list cloud cluster nodes --cluster <ID>
 northflank create cloud cluster|integration -i '<JSON>'
+northflank patch cloud cluster --cluster <ID> -i '<JSON>'
+northflank cordon|drain|uncordon cloud cluster node --cluster <ID> --node <ID>
+
+# SSH into services
+northflank ssh service --project <ID> --service <ID>
 
 # VCS
 northflank list vcs
@@ -264,6 +310,41 @@ northflank list branches --vcs <ID> --repo <REPO>
 # Plans & Regions
 northflank list plans
 northflank list regions
+
+# Org roles & teams
+northflank list org-roles
+northflank create org-role -i '<JSON>'
+northflank create org-role-member -i '<JSON>'
+northflank list teams
+northflank create team -i '<JSON>'
+northflank list team-members --team <ID>
+northflank list team-roles --team <ID>
+northflank create team-role --team <ID> -i '<JSON>'
+
+# Release flows
+northflank get release-flow --project <ID> --releaseFlow <ID>
+northflank update release-flow --project <ID> --releaseFlow <ID> -i '<JSON>'
+northflank run release-flow --project <ID> --releaseFlow <ID> -i '<JSON>'
+northflank list release-flow-runs --project <ID> --releaseFlow <ID>
+northflank abort release-flow-run --project <ID> --releaseFlow <ID> --releaseFlowRun <ID>
+
+# Preview blueprints
+northflank list preview-blueprints --project <ID>
+northflank create preview-blueprint --project <ID> -i '<JSON>'
+northflank run preview-blueprint --project <ID> --previewBlueprint <ID>
+northflank pause|resume blueprint-template-preview --project <ID> --preview <ID>
+
+# Preview templates
+northflank get preview-template --project <ID> --previewTemplate <ID>
+northflank update preview-template --project <ID> --previewTemplate <ID> -i '<JSON>'
+northflank run preview-template --project <ID> --previewTemplate <ID>
+
+# Subdomain paths
+northflank add subdomain path --domain <ID> --subdomain <ID> -i '<JSON>'
+northflank list subdomain path --domain <ID> --subdomain <ID>
+northflank assign subdomain path --domain <ID> --subdomain <ID> --path <ID> -i '<JSON>'
+northflank unassign subdomain path --domain <ID> --subdomain <ID> --path <ID>
+northflank delete subdomain path --domain <ID> --subdomain <ID> --path <ID>
 ```
 
 ---
